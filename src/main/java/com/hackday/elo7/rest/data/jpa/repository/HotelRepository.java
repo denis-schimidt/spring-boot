@@ -16,9 +16,6 @@
 
 package com.hackday.elo7.rest.data.jpa.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -29,7 +26,4 @@ import com.hackday.elo7.rest.data.jpa.domain.Hotel;
 public interface HotelRepository extends PagingAndSortingRepository<Hotel, Long> {
 
 	Hotel findByCityAndName(City city, String name);
-
-	@Query(value="SELECT h FROM Hotel h JOIN h.city")
-	Page<Hotel> findAllHotelsWithCities(Pageable pageable);
 }

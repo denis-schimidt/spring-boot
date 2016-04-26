@@ -17,7 +17,7 @@ import com.hackday.elo7.rest.data.jpa.domain.Hotel;
 import com.hackday.elo7.rest.data.jpa.repository.HotelRepository;
 
 @RestController
-@RequestMapping(path="hoteis", produces="application/json; charset=UTF-8")
+@RequestMapping(path="hoteis", produces="application/json;charset=UTF-8")
 public class HotelApiRestController {
 
 	@Autowired
@@ -28,10 +28,9 @@ public class HotelApiRestController {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String listarTodosHoteis(
-		@RequestParam(defaultValue="0",required=false,value="pagina") int pagina,
-		@RequestParam(defaultValue="name",required=false,value="campoAOrdenar") String campoAOrdenar,
-		@RequestParam(defaultValue="ASC",required=false,value="ordenacao") String ordenacao) throws JsonProcessingException{
+	public String listarTodosHoteis(@RequestParam(defaultValue="0",required=false,value="pagina") int pagina,
+			@RequestParam(defaultValue="name",required=false,value="campoAOrdenar") String campoAOrdenar,
+			@RequestParam(defaultValue="ASC",required=false,value="ordenacao") String ordenacao) throws JsonProcessingException{
 
 		Pageable paginacao = new PageRequest(pagina, TAMANHO_PAGINA, Direction.fromStringOrNull(ordenacao), campoAOrdenar);
 
