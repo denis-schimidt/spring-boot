@@ -28,6 +28,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Hotel implements Serializable {
 
@@ -40,6 +42,7 @@ public class Hotel implements Serializable {
 	@ManyToOne(optional = false)
 	@NaturalId
 	@Fetch(FetchMode.JOIN)
+	@JsonProperty(required=true)
 	private City city;
 
 	@Column(nullable = false)
@@ -51,7 +54,7 @@ public class Hotel implements Serializable {
 
 	@Column(nullable = false)
 	private String zip;
-
+	
 	protected Hotel() {
 	}
 

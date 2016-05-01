@@ -5,14 +5,20 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.client.RestTemplate;
 
 import com.hackday.elo7.rest.data.jpa.RestApplication;
+import com.hackday.elo7.rest.data.jpa.domain.Hotel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = RestApplication.class)
@@ -84,6 +90,7 @@ public class HotelApiRestControllerTest {
 			.body("city.state", equalTo("Catalunya"))
 			.body("city.country", equalTo("Spain"))
 			.body("city.map", equalTo("41.387917, 2.169919"));
+		
 	}
 
 	@Test
@@ -121,5 +128,22 @@ public class HotelApiRestControllerTest {
 			.get("/hoteis")
 		.then()
 			.contentType("application/json;charset=UTF-8");
+	}
+	
+	@Test
+	public void deveRetornarListaHoteisOrdenadadosPorCidadeDecrescenteComClienteRest(){
+		
+		RestTemplate restTemplate = new RestTemplate();
+	    List<Hotel> hoteis = Arrays.asList(restTemplate.getForObject("http://localhost:8080/hoteis?pagina=0&campoAOrdenar=city.name&ordenacao=DESC", 
+	    		Hotel[].class));
+	            
+	    List<String> cidadesEsperadas = Arrays.asList(new String[]{"Washington,DC,USA", "Tokyo,,Japan", "Tel Aviv,,Israel", 
+	    		"Sydney,New South Wales,Australia", "Southampton,Hampshire,UK", "San Francisco,CA,USA", "Palm Bay,FL,USA", "New York,NY,USA", 
+	    		"New York,NY,USA", "New York,NY,USA"});
+	    
+	    Iterator<String> cidadeEsperadaIterator = cidadesEsperadas.iterator();
+	    
+	    hoteis.stream()
+	    	.forEachOrdered( h-> h.getCity().getName().equals(cidadeEsperadaIterator.next()));
 	}
 }

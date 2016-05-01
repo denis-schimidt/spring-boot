@@ -18,18 +18,25 @@ package com.hackday.elo7.rest.data.jpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
 @Import(RepositoryRestMvcConfiguration.class)
 public class RestApplication {
-
+	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(RestApplication.class, args);
 	}
+	
+	@Bean(name="jsonMessageConverter")
+	public MappingJackson2HttpMessageConverter newMappingJackson2HttpMessageConverter(){
+		return new MappingJackson2HttpMessageConverter();
+	} 
 }
