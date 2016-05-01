@@ -30,13 +30,13 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 @EnableAutoConfiguration
 @Import(RepositoryRestMvcConfiguration.class)
 public class RestApplication {
-	
+
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(RestApplication.class, args);
 	}
-	
+
 	@Bean(name="jsonMessageConverter")
 	public MappingJackson2HttpMessageConverter newMappingJackson2HttpMessageConverter(){
 		return new MappingJackson2HttpMessageConverter();
-	} 
+	}
 }

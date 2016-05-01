@@ -26,8 +26,8 @@ public class HotelApiRestController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public @ResponseBody List<Hotel> listarTodosHoteis(@RequestParam(defaultValue="0",required=false,value="pagina") int pagina,
-			@RequestParam(defaultValue="name",required=false,value="campoAOrdenar") String campoAOrdenar,
-			@RequestParam(defaultValue="ASC",required=false,value="ordenacao") String ordenacao){
+		@RequestParam(defaultValue="name",required=false,value="campoAOrdenar") String campoAOrdenar,
+		@RequestParam(defaultValue="ASC",required=false,value="ordenacao") String ordenacao){
 
 		Pageable paginacao = new PageRequest(pagina, TAMANHO_PAGINA, Direction.fromStringOrNull(ordenacao), campoAOrdenar);
 
